@@ -1,11 +1,11 @@
-package com.solution.picpay_problem.config;
+package com.solution.picpay_problem.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -17,6 +17,8 @@ public class SecurityConfig {
         return http
             .csrf(csrf-> csrf.disable())
             .cors(cors -> cors.disable())
+            .authorizeHttpRequests(authorize -> authorize.anyRequest())
+            .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests((authurize) -> authurize
                 .requestMatchers(HttpMethod.POST, "/Login", "/register").permitAll())
 

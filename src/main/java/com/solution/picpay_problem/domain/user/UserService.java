@@ -1,6 +1,7 @@
 package com.solution.picpay_problem.domain.user;
 
 import com.solution.picpay_problem.dtos.user.UserDatas;
+import com.solution.picpay_problem.dtos.user.UserEmailAndPassword;
 import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,10 @@ public class UserService {
          this.userRepository.save(user);
 
          return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+
+    public  ResponseEntity loginUser(UserEmailAndPassword datas){
+        return  ResponseEntity.ok("Ta ok");
     }
 }
