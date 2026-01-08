@@ -5,25 +5,23 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.solution.picpay_problem.domain.user.UserEntity;
+import com.solution.picpay_problem.security.userDetails.UserDetailsIml;
+import org.springframework.stereotype.Service;
 
-public class JwtAuthentication {
+@Service
+public class TokenService {
     Algorithm algorithm = Algorithm.HMAC256("Es9a é a chAv3 secr3ta");
-    public String createToken (UserEntity user){
-        try{
+    public String createToken (UserDetailsIml user) throws JWTCreationException{
 
             return JWT.create()
                 .withIssuer("Nicolas-End")
-                .withSubject(user.getEmail())
+                .withSubject(user.getUsername())
                 .sign(algorithm);
 
 
-        }catch (JWTCreationException error){
-            throw error;
-        }
     }
 
-    public String getSubjectToken (String token){
-        try{
+    public String getSubjectToken (String token) throws JWTDecodeException{
 
             return JWT.require(algorithm)
                 .withIssuer("Nicolas-End")
@@ -31,9 +29,6 @@ public class JwtAuthentication {
                 .verify(token)
                 .getSubject();
 
-        }catch (JWTDecodeException error){
-            throw error;
-        }
     }
 }
 

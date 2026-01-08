@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum UserRole {
-    Comum("Comum"),
-    Lojista("Lojista");
+    COMUM("COMUM"),
+    LOJISTA("LOJISTA");
 
     private final String role;
 }

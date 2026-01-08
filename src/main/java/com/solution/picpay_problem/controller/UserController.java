@@ -1,18 +1,16 @@
 package com.solution.picpay_problem.controller;
 
 import com.solution.picpay_problem.domain.user.UserService;
-import com.solution.picpay_problem.dtos.user.UserDatas;
-import com.solution.picpay_problem.dtos.user.UserEmailAndPassword;
+import com.solution.picpay_problem.dtos.user.UserRegisterDTO;
+import com.solution.picpay_problem.dtos.user.UserLoginDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping
 public class UserController {
 
     private final UserService userService;
@@ -22,12 +20,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity userRegister (@RequestBody UserDatas datas){
+    public ResponseEntity userRegister (@RequestBody UserRegisterDTO datas){
         return userService.registerUser(datas);
     }
 
     @PostMapping("/login")
-    public ResponseEntity userLogin(@RequestBody UserEmailAndPassword datas){
+    public ResponseEntity userLogin(@RequestBody UserLoginDTO datas){
         return userService.loginUser(datas);
     }
 }

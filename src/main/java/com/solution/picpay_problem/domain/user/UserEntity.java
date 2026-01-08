@@ -1,10 +1,7 @@
 package com.solution.picpay_problem.domain.user;
 
 import com.solution.picpay_problem.enums.user.UserRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +13,7 @@ import java.util.UUID;
 @Table(name = "TB_Usuarios")
 public class UserEntity {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private UUID id;
 
     @Column
@@ -24,15 +22,16 @@ public class UserEntity {
     @Column
     private double saldo;
 
-    @Column(unique = true)
-    private int cpf;
+    @Column(unique = true, nullable = false)
+    private String cpf;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column
+    @Column(nullable = false)
     private String senha;
 
-    @Column
-    private UserRole role;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserRole cargo;
 }
