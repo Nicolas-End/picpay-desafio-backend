@@ -12,9 +12,10 @@ import java.util.UUID;
 @Setter
 @Table(name = "TB_Usuarios")
 public class UserEntity {
+
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private UUID id;
+    private String cpf;
 
     @Column
     private String nome;
@@ -22,8 +23,6 @@ public class UserEntity {
     @Column
     private double saldo;
 
-    @Column(unique = true, nullable = false)
-    private String cpf;
 
     @Column(unique = true, nullable = false)
     private String email;

@@ -1,5 +1,8 @@
 package com.solution.picpay_problem.security.config;
 
+import com.solution.picpay_problem.security.authentication.TokenFilter;
+import org.antlr.v4.runtime.Token;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,22 +14,26 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http, TokenFilter tokenFilter) throws Exception{
+
+
         return http
             .csrf(csrf-> csrf.disable())
             .cors(cors -> cors.disable())
             .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests((authurize) -> authurize
-                .requestMatchers(HttpMethod.POST, "/Login", "/register").permitAll()
-                .anyRequest().permitAll()
+                .requestMatchers(HttpMethod.GET , "/hello").permitAll()
+                .requestMatchers(HttpMethod.POST, "/login", "/register").permitAll()
+                .requestMatchers(HttpMethod.POST, "/transfer").hasRole("COMUM")
             )
-            .addFilterBefore()
+            .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
     }
 

@@ -9,18 +9,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
 @Component
-public class TokenFIlter extends OncePerRequestFilter {
+public class TokenFilter extends OncePerRequestFilter {
     private final TokenService tokenService;
     private final UserRepository userRepository;
 
-    public TokenFIlter(TokenService tokenService, UserRepository userRepository){
+    public TokenFilter(TokenService tokenService, UserRepository userRepository){
         this.tokenService = tokenService;
         this.userRepository = userRepository;
     }
@@ -33,8 +32,10 @@ public class TokenFIlter extends OncePerRequestFilter {
        // verifica se o usuario tem algum token no hearder
         String token = getToken(request);
         if (token != null){
+
             // pega o email do usuario guardado no token
             String email = this.tokenService.getSubjectToken(token);
+
 
             UserEntity user = this.userRepository.findByEmail(email);
 
@@ -45,13 +46,14 @@ public class TokenFIlter extends OncePerRequestFilter {
 
             SecurityContextHolder.getContext().setAuthentication(authetication);
         }
-
+        filterChain.doFilter(request, response);
 
     }
     private String getToken(HttpServletRequest request){
         String authorizationHeader = request.getHeader("Authorization");
+
         if(authorizationHeader != null) {
-            return authorizationHeader.replace("Barrer ", "");
+            return authorizationHeader.replace("Bearer ", "");
         }
         return null;
     }

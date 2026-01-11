@@ -23,11 +23,11 @@ public class TokenService {
 
     public String getSubjectToken (String token) throws JWTDecodeException{
 
-            return JWT.require(algorithm)
-                .withIssuer("Nicolas-End")
-                .build()
-                .verify(token)
-                .getSubject();
+        return JWT.require(algorithm)
+            .withIssuer("Nicolas-End")
+            .build()
+            .verify(token)
+            .getSubject();
 
     }
 }
