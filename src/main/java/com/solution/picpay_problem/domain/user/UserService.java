@@ -42,7 +42,7 @@ public class UserService {
 
 
     public  ResponseEntity loginUser(UserLoginDTO datas){
-        var usernamePasswrod = new UsernamePasswordAuthenticationToken(datas.email(),datas.senha());
+        var usernamePasswrod = new UsernamePasswordAuthenticationToken(datas.email(),datas.password());
         var auth = this.authenticationManager.authenticate(usernamePasswrod);
 
         var token = tokenService.createToken( (UserDetailsIml) auth.getPrincipal() );
@@ -51,13 +51,13 @@ public class UserService {
     }
 
     private UserEntity createObjUser(UserRegisterDTO datas){
-        String hashed_password = new BCryptPasswordEncoder().encode(datas.senha());
+        String hashed_password = new BCryptPasswordEncoder().encode(datas.password());
         UserEntity user = new UserEntity();
         user.setCpf(datas.cpf());
         user.setEmail(datas.email());
-        user.setNome(datas.nome());
-        user.setSenha(hashed_password);
-        user.setCargo(datas.cargo());
+        user.setName(datas.name());
+        user.setPassword(hashed_password);
+        user.setRole(datas.role());
 
         return user;
     }

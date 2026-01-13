@@ -1,6 +1,7 @@
 package com.solution.picpay_problem.controller;
 
 import com.solution.picpay_problem.domain.transations.TransitionsService;
+import com.solution.picpay_problem.dtos.transitions.NotifyMessage;
 import com.solution.picpay_problem.dtos.transitions.TransitionsDatasDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,5 +20,10 @@ public class TransitionsController {
     @PostMapping("/transfer")
     public ResponseEntity createNewRequestTransfer(@RequestBody TransitionsDatasDTO datas){
         return transitionsService.requestNewTransition(datas) ;
+    }
+
+    @PostMapping("/notify")
+    public ResponseEntity notifyReciver(){
+        return ResponseEntity.ok(new NotifyMessage("error","The service is not available, try again later"));
     }
 }

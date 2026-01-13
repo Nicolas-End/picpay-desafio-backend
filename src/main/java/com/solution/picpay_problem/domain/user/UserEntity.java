@@ -18,7 +18,7 @@ public class UserEntity {
     private String cpf;
 
     @Column
-    private String nome;
+    private String name;
 
     @Column
     private double saldo;
@@ -28,9 +28,9 @@ public class UserEntity {
     private String email;
 
     @Column(nullable = false)
-    private String senha;
+    private String password;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserRole cargo;
+    private UserRole role;
 }

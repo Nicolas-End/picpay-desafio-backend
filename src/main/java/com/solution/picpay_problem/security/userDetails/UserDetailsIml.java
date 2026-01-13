@@ -23,7 +23,7 @@ public class UserDetailsIml implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // configura o cargo do usuario em granAuthority
         return List.of(
-            new SimpleGrantedAuthority("ROLE_" + user.getCargo().name())
+            new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
         );
     }
 
@@ -33,7 +33,7 @@ public class UserDetailsIml implements UserDetails {
         /* Diz ao Authentication Manager qual seria a senha para identificar o usuario
         * obs: o usuario é encontrado de acordo com a função no UserDetails Service*/
 
-        return user.getSenha();
+        return user.getPassword();
     }
 
     @Override
