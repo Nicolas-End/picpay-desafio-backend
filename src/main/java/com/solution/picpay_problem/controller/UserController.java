@@ -3,7 +3,6 @@ package com.solution.picpay_problem.controller;
 import com.solution.picpay_problem.domain.user.UserService;
 import com.solution.picpay_problem.dtos.user.UserRegisterDTO;
 import com.solution.picpay_problem.dtos.user.UserLoginDTO;
-import com.solution.picpay_problem.dtos.user.UserTransferEmail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
