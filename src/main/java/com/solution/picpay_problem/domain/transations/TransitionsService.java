@@ -30,11 +30,11 @@ public class TransitionsService {
 
 
         if(reciverUser == null )return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        if (user.getSaldo() < datas.value()) return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        if (user.getBalance() < datas.value()) return ResponseEntity.status(HttpStatus.CONFLICT).build();
 
-
-        reciverUser.setSaldo(reciverUser.getSaldo() + datas.value());
-        user.setSaldo(user.getSaldo() - datas.value());
+        //reajustando saldo dos usuarios
+        reciverUser.setBalance(reciverUser.getBalance() + datas.value());
+        user.setBalance(user.getBalance() - datas.value());
 
         this.userRepository.save(reciverUser);
         this.userRepository.save(user);

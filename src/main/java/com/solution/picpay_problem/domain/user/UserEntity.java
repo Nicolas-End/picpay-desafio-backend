@@ -21,7 +21,7 @@ public class UserEntity {
     private String name;
 
     @Column
-    private double saldo;
+    private double balance;
 
 
     @Column(unique = true, nullable = false)
@@ -33,4 +33,5 @@ public class UserEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
 }
